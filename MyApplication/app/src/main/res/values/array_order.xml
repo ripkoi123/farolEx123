@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="items1">
+        <item>Pizza Little Caesars Peperoni</item>
+        <item>Pizza Little Caesars 3 Meat</item>
+        <item>Pizza Little Caesars Super Cheese</item>
+        <item>Hamburguesa Sirloin Buffalucas</item>
+        <item>Gorditas Doña Irma</item>
+        <item>Gorditas Don Kike</item>
+    </string-array>
+    <string-array name="items2">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+</resources>
