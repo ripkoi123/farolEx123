@@ -1,121 +1,190 @@
-/*
-Navicat MySQL Data Transfer
+-- MySQL Workbench Forward Engineering
 
-Source Server         : con1
-Source Server Version : 50505
-Source Host           : localhost:3306
-Source Database       : farolex
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-Target Server Type    : MYSQL
-Target Server Version : 50505
-File Encoding         : 65001
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
 
-Date: 2018-10-23 23:22:22
-*/
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
 
-SET FOREIGN_KEY_CHECKS=0;
+-- -----------------------------------------------------
+-- Table `mydb`.`Users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `lastname` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `type` INT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
--- ----------------------------
--- Table structure for delivered
--- ----------------------------
-DROP TABLE IF EXISTS `delivered`;
-CREATE TABLE `delivered` (
-  `id` int(8) NOT NULL,
-  `state` int(1) DEFAULT NULL,
-  `dateOrder` datetime DEFAULT NULL,
-  `dateDelivered` datetime DEFAULT NULL,
-  `delivers_id` int(11) DEFAULT NULL,
-  `orders_id` int(11) DEFAULT NULL,
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Orders`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Orders` (
+  `id` INT NOT NULL,
+  `order` VARCHAR(45) NULL,
+  `cost` VARCHAR(45) NULL,
+  `lat` VARCHAR(45) NULL,
+  `long` VARCHAR(45) NULL,
+  `Users_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `delivers_id` (`delivers_id`) USING BTREE,
-  KEY `orders_id` (`orders_id`) USING BTREE,
-  CONSTRAINT `delivered_ibfk_1` FOREIGN KEY (`delivers_id`) REFERENCES `delivers` (`id`),
-  CONSTRAINT `delivered_ibfk_2` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  INDEX `fk_Orders_Users1_idx` (`Users_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Orders_Users1`
+    FOREIGN KEY (`Users_id`)
+    REFERENCES `mydb`.`Users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
--- ----------------------------
--- Records of delivered
--- ----------------------------
 
--- ----------------------------
--- Table structure for delivers
--- ----------------------------
-DROP TABLE IF EXISTS `delivers`;
-CREATE TABLE `delivers` (
-  `id` int(3) NOT NULL,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `lastname` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `phone` int(10) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- -----------------------------------------------------
+-- Table `mydb`.`Delivers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Delivers` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `lastname` VARCHAR(45) NULL,
+  `address` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
--- ----------------------------
--- Records of delivers
--- ----------------------------
 
--- ----------------------------
--- Table structure for orders
--- ----------------------------
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-  `id` int(8) NOT NULL,
-  `order` varchar(255) DEFAULT NULL,
-  `cost` double(6,2) DEFAULT NULL,
-  `lat` double(10,7) DEFAULT NULL,
-  `long` double(10,7) DEFAULT NULL,
-  `products_id` int(11) DEFAULT NULL,
-  `users_id` int(11) DEFAULT NULL,
+-- -----------------------------------------------------
+-- Table `mydb`.`Delivered`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Delivered` (
+  `id` INT NOT NULL,
+  `state` VARCHAR(45) NULL,
+  `dateOrder` DATETIME NULL,
+  `dateDelivered` DATETIME NULL,
+  `Delivers_id` INT NOT NULL,
+  `Orders_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `products_id` (`products_id`) USING BTREE,
-  KEY `users_id` (`users_id`) USING BTREE,
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  INDEX `fk_Delivered_Delivers_idx` (`Delivers_id` ASC) VISIBLE,
+  INDEX `fk_Delivered_Orders1_idx` (`Orders_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Delivered_Delivers`
+    FOREIGN KEY (`Delivers_id`)
+    REFERENCES `mydb`.`Delivers` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Delivered_Orders1`
+    FOREIGN KEY (`Orders_id`)
+    REFERENCES `mydb`.`Orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
--- ----------------------------
--- Records of orders
--- ----------------------------
 
--- ----------------------------
--- Table structure for products
--- ----------------------------
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE `products` (
-  `id` int(4) NOT NULL,
-  `product` varchar(45) DEFAULT NULL,
-  `cost` decimal(6,2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- -----------------------------------------------------
+-- Table `mydb`.`Stores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Stores` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `lat` DOUBLE NULL,
+  `long` DOUBLE NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
--- ----------------------------
--- Records of products
--- ----------------------------
-INSERT INTO `products` VALUES ('1', 'pizza little caesars peperoni', '80.00');
-INSERT INTO `products` VALUES ('2', 'pizza little caesars super cheese', '120.00');
-INSERT INTO `products` VALUES ('3', 'pizza little caesars 3 meat', '120.00');
-INSERT INTO `products` VALUES ('4', 'hamburguesa sirloin buffalucas', '80.00');
 
--- ----------------------------
--- Table structure for users
--- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` int(8) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `lastname` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `phone` int(10) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `type` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- -----------------------------------------------------
+-- Table `mydb`.`Products`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Products` (
+  `id` INT NOT NULL,
+  `product` VARCHAR(45) NULL,
+  `cost` FLOAT NULL,
+  `Stores_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Products_Stores1_idx` (`Stores_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Products_Stores1`
+    FOREIGN KEY (`Stores_id`)
+    REFERENCES `mydb`.`Stores` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
--- ----------------------------
--- Records of users
--- ----------------------------
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Address` (
+  `id` INT NOT NULL,
+  `address` VARCHAR(45) NULL,
+  `lat` DOUBLE NULL,
+  `long` DOUBLE NULL,
+  `Users_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Address_Users1_idx` (`Users_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Address_Users1`
+    FOREIGN KEY (`Users_id`)
+    REFERENCES `mydb`.`Users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Phones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Phones` (
+  `id` INT NOT NULL,
+  `phone` INT NULL,
+  `tipo` INT NULL,
+  `Users_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Phones_Users1_idx` (`Users_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Phones_Users1`
+    FOREIGN KEY (`Users_id`)
+    REFERENCES `mydb`.`Users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Exchange`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Exchange` (
+  `id` INT NOT NULL,
+  `Stores_id` INT NOT NULL,
+  `Products_id` INT NOT NULL,
+  `Orders_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Exchange_Stores1_idx` (`Stores_id` ASC) VISIBLE,
+  INDEX `fk_Exchange_Products1_idx` (`Products_id` ASC) VISIBLE,
+  INDEX `fk_Exchange_Orders1_idx` (`Orders_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Exchange_Stores1`
+    FOREIGN KEY (`Stores_id`)
+    REFERENCES `mydb`.`Stores` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Exchange_Products1`
+    FOREIGN KEY (`Products_id`)
+    REFERENCES `mydb`.`Products` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Exchange_Orders1`
+    FOREIGN KEY (`Orders_id`)
+    REFERENCES `mydb`.`Orders` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
