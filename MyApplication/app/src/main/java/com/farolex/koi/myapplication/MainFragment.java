@@ -60,13 +60,13 @@ public class MainFragment extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.Container, new RegisterFragment()).commit();
+                getFragmentManager().beginTransaction().addToBackStack("RegisterFragment").replace(R.id.Container, new RegisterFragment()).commit();
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.Container, new LoginFragment()).commit();
+                getFragmentManager().beginTransaction().addToBackStack("LoginFragment").replace(R.id.Container, new LoginFragment()).commit();
             }
         });
     }
