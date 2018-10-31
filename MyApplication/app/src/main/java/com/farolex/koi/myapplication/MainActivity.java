@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
             System.exit(0);
         }
             if(fragSelected){
-                getSupportFragmentManager().beginTransaction().replace(R.id.Container, fragment).commit();
+                getSupportFragmentManager().beginTransaction().addToBackStack("LoginFragment").replace(R.id.Container, fragment).commit();
             }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
