@@ -61,11 +61,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 session = new Session(getActivity());
-                if(session.getusername()==null){
+                if(session.getusername()==""){
                     session.setusername(etUser1.getText().toString());
-                    aldito.shToast("gato1",getActivity());
-                }else if(session.getusername()!=null){
-                    aldito.shToast("gato2",getActivity());
+                    aldito.shToast(session.getusername(),getActivity());
+                }else if(session.getusername()!=""){
+                    aldito.shToast(session.getusername(),getActivity());
                 }
 
                 //getFragmentManager().beginTransaction().replace(R.id.Container, new RegisterFragment()).commit();
