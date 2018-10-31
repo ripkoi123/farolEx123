@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity
         ContactFragment.OnFragmentInteractionListener,
         RegisterFragment.OnFragmentInteractionListener,
         MainFragment.OnFragmentInteractionListener,
-        LoginFragment.OnFragmentInteractionListener{
+        LoginFragment.OnFragmentInteractionListener,
+        ResetFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
