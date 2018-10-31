@@ -10,24 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    Session session;
     private OnFragmentInteractionListener mListener;
 
     public LoginFragment() {
         // Required empty public constructor
     }
-    // TODO: Rename and change types and number of parameters
     public static LoginFragment newInstance(String param1, String param2) {
         LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
@@ -57,17 +53,25 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button btnLogin1 = (Button)view.findViewById(R.id.btnLogin1);
+        final EditText etUser1 = (EditText)view.findViewById(R.id.etUser1);
+        EditText etPass1 = (EditText)view.findViewById(R.id.etPass1);
+
         final Aldito aldito = new Aldito();
         btnLogin1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aldito.shToast("Ingresado Exitosamente",getActivity());
+                session = new Session(getActivity());
+                if(session.getusername()==null){
+                    session.setusername(etUser1.getText().toString());
+                    aldito.shToast("gato1",getActivity());
+                }else if(session.getusername()!=null){
+                    aldito.shToast("gato2",getActivity());
+                }
+
                 //getFragmentManager().beginTransaction().replace(R.id.Container, new RegisterFragment()).commit();
             }
         });
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -91,7 +95,6 @@ public class LoginFragment extends Fragment {
         mListener = null;
     }
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
