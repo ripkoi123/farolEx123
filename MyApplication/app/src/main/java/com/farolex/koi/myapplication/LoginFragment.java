@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment {
         tvReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.Container, new ResetFragment()).commit();
+                getFragmentManager().beginTransaction().addToBackStack("LoginFragment").replace(R.id.Container, new ResetFragment()).commit();
             }
         });
     }
