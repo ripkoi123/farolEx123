@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginFragment extends Fragment {
@@ -55,7 +56,7 @@ public class LoginFragment extends Fragment {
         Button btnLogin1 = (Button)view.findViewById(R.id.btnLogin1);
         final EditText etUser1 = (EditText)view.findViewById(R.id.etUser1);
         EditText etPass1 = (EditText)view.findViewById(R.id.etPass1);
-
+        TextView tvReset = (TextView)view.findViewById(R.id.tvReset);
         final Aldito aldito = new Aldito();
         btnLogin1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,12 @@ public class LoginFragment extends Fragment {
                 }
 
                 //getFragmentManager().beginTransaction().replace(R.id.Container, new RegisterFragment()).commit();
+            }
+        });
+        tvReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.Container, new ResetFragment()).commit();
             }
         });
     }
