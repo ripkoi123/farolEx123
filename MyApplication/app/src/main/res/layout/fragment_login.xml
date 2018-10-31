@@ -48,12 +48,27 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="94dp" />
+            android:layout_height="57dp" />
 
         <Button
             android:id="@+id/btnLogin1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ingresar" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <TextView
+            android:id="@+id/tvReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="Olvide mi contraseña"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorLink="@color/colorPrimaryDark"
+            android:textStyle="bold" />
     </LinearLayout>
 </FrameLayout>
