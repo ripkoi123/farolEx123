@@ -22,10 +22,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class UbicationFragment extends Fragment implements OnMapReadyCallback {
-    // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     int flagMarker = 0;
@@ -38,8 +36,6 @@ public class UbicationFragment extends Fragment implements OnMapReadyCallback {
     public UbicationFragment() {
         // Required empty public constructor
     }
-
-    // TODO: Rename and change types and number of parameters
     public static UbicationFragment newInstance(String param1, String param2) {
         UbicationFragment fragment = new UbicationFragment();
         Bundle args = new Bundle();
@@ -78,7 +74,6 @@ public class UbicationFragment extends Fragment implements OnMapReadyCallback {
 
         }
     }
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -103,7 +98,6 @@ public class UbicationFragment extends Fragment implements OnMapReadyCallback {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
