@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.Container, new MainFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.Container, new LoginFragment()).commit();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new OrderFragment();
             fragSelected=true;
         } else if (id == R.id.nav_home) {
-            fragment = new MainFragment();
+            fragment = new LoginFragment();
             fragSelected=true;
         } else if (id == R.id.nav_ubication) {
             fragment = new UbicationFragment();
