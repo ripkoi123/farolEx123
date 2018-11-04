@@ -57,6 +57,7 @@ public class LoginFragment extends Fragment {
         final EditText etUser1 = (EditText)view.findViewById(R.id.etUser1);
         EditText etPass1 = (EditText)view.findViewById(R.id.etPass1);
         TextView tvReset = (TextView)view.findViewById(R.id.tvReset);
+        TextView tvRegister = (TextView)view.findViewById(R.id.tvRegister);
         final Aldito aldito = new Aldito();
         btnLogin1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +77,12 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction().addToBackStack("LoginFragment").replace(R.id.Container, new ResetFragment()).commit();
+            }
+        });
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().addToBackStack("LoginFragment").replace(R.id.Container, new RegisterFragment()).commit();
             }
         });
     }
